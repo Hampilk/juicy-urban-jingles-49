@@ -58,88 +58,118 @@ export interface Category {
 }
 
 // Helper functions to render components for showcase
-const renderButton = () => <Button>Click me</Button>;
+const renderButton = () => React.createElement(Button, {}, "Click me");
 
-const renderCard = () => (
-  <Card className="w-full max-w-md">
-    <CardHeader>
-      <CardTitle>Card Title</CardTitle>
-      <CardDescription>Card Description</CardDescription>
-    </CardHeader>
-    <CardContent>
-      <p>Card Content</p>
-    </CardContent>
-    <CardFooter>
-      <p>Card Footer</p>
-    </CardFooter>
-  </Card>
+const renderCard = () => React.createElement(
+  Card, 
+  { className: "w-full max-w-md" }, 
+  [
+    React.createElement(CardHeader, { key: "header" }, [
+      React.createElement(CardTitle, { key: "title" }, "Card Title"),
+      React.createElement(CardDescription, { key: "desc" }, "Card Description")
+    ]),
+    React.createElement(CardContent, { key: "content" }, 
+      React.createElement("p", {}, "Card Content")
+    ),
+    React.createElement(CardFooter, { key: "footer" }, 
+      React.createElement("p", {}, "Card Footer")
+    )
+  ]
 );
 
-const renderBadge = () => <Badge>Badge</Badge>;
+const renderBadge = () => React.createElement(Badge, {}, "Badge");
 
-const renderAvatar = () => (
-  <Avatar>
-    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-    <AvatarFallback>CN</AvatarFallback>
-  </Avatar>
+const renderAvatar = () => React.createElement(
+  Avatar, 
+  {}, 
+  [
+    React.createElement(AvatarImage, { key: "img", src: "https://github.com/shadcn.png", alt: "@shadcn" }),
+    React.createElement(AvatarFallback, { key: "fallback" }, "CN")
+  ]
 );
 
-const renderAccordion = () => (
-  <Accordion type="single" collapsible className="w-full">
-    <AccordionItem value="item-1">
-      <AccordionTrigger>Is it accessible?</AccordionTrigger>
-      <AccordionContent>
-        Yes. It adheres to the WAI-ARIA design pattern.
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-2">
-      <AccordionTrigger>Is it styled?</AccordionTrigger>
-      <AccordionContent>
-        Yes. It comes with default styles that matches the other components.
-      </AccordionContent>
-    </AccordionItem>
-  </Accordion>
+const renderAccordion = () => React.createElement(
+  Accordion, 
+  { type: "single", collapsible: true, className: "w-full" }, 
+  [
+    React.createElement(AccordionItem, { key: "item-1", value: "item-1" }, [
+      React.createElement(AccordionTrigger, { key: "trigger-1" }, "Is it accessible?"),
+      React.createElement(AccordionContent, { key: "content-1" }, 
+        "Yes. It adheres to the WAI-ARIA design pattern."
+      )
+    ]),
+    React.createElement(AccordionItem, { key: "item-2", value: "item-2" }, [
+      React.createElement(AccordionTrigger, { key: "trigger-2" }, "Is it styled?"),
+      React.createElement(AccordionContent, { key: "content-2" }, 
+        "Yes. It comes with default styles that matches the other components."
+      )
+    ])
+  ]
 );
 
-const renderAlert = () => (
-  <Alert>
-    <AlertTitle>Alert Title</AlertTitle>
-    <AlertDescription>Alert Description</AlertDescription>
-  </Alert>
+const renderAlert = () => React.createElement(
+  Alert, 
+  {}, 
+  [
+    React.createElement(AlertTitle, { key: "title" }, "Alert Title"),
+    React.createElement(AlertDescription, { key: "desc" }, "Alert Description")
+  ]
 );
 
-const renderAspectRatio = () => (
-  <div className="w-[200px]">
-    <AspectRatio ratio={16 / 9}>
-      <div className="flex items-center justify-center bg-muted w-full h-full rounded-md">
-        16:9
-      </div>
-    </AspectRatio>
-  </div>
+const renderAspectRatio = () => React.createElement(
+  "div", 
+  { className: "w-[200px]" }, 
+  React.createElement(
+    AspectRatio, 
+    { ratio: 16 / 9 }, 
+    React.createElement(
+      "div", 
+      { className: "flex items-center justify-center bg-muted w-full h-full rounded-md" }, 
+      "16:9"
+    )
+  )
 );
 
-const renderTeamComparison = () => (
-  <div className="h-96 overflow-auto">
-    <TeamComparison 
-      teams={[
+const renderTeamComparison = () => React.createElement(
+  "div", 
+  { className: "h-96 overflow-auto" }, 
+  React.createElement(
+    TeamComparison, 
+    { 
+      teams: [
         { id: '1', name: 'Liverpool', logoUrl: 'https://via.placeholder.com/150' },
         { id: '2', name: 'Arsenal', logoUrl: 'https://via.placeholder.com/150' }
-      ]} 
-      onClose={() => {}}
-    />
-  </div>
+      ],
+      onClose: () => {} 
+    }
+  )
 );
 
 // Props rendering functions
-const renderButtonProps = () => (
-  <div className="space-y-4">
-    <p className="font-medium">Props:</p>
-    <ul className="list-disc pl-5 space-y-2 text-sm">
-      <li><code>variant</code> - Button style variant</li>
-      <li><code>size</code> - Button size</li>
-      <li><code>asChild</code> - Change the component to the HTML tag or component</li>
-    </ul>
-  </div>
+const renderButtonProps = () => React.createElement(
+  "div", 
+  { className: "space-y-4" }, 
+  [
+    React.createElement("p", { key: "title", className: "font-medium" }, "Props:"),
+    React.createElement(
+      "ul", 
+      { key: "list", className: "list-disc pl-5 space-y-2 text-sm" }, 
+      [
+        React.createElement("li", { key: "prop1" }, [
+          React.createElement("code", {}, "variant"),
+          " - Button style variant"
+        ]),
+        React.createElement("li", { key: "prop2" }, [
+          React.createElement("code", {}, "size"),
+          " - Button size"
+        ]),
+        React.createElement("li", { key: "prop3" }, [
+          React.createElement("code", {}, "asChild"),
+          " - Change the component to the HTML tag or component"
+        ])
+      ]
+    )
+  ]
 );
 
 // Sample code snippets for components
