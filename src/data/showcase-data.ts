@@ -57,6 +57,91 @@ export interface Category {
   subcategories: SubCategory[];
 }
 
+// Helper functions to render components for showcase
+const renderButton = () => <Button>Click me</Button>;
+
+const renderCard = () => (
+  <Card className="w-full max-w-md">
+    <CardHeader>
+      <CardTitle>Card Title</CardTitle>
+      <CardDescription>Card Description</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Card Content</p>
+    </CardContent>
+    <CardFooter>
+      <p>Card Footer</p>
+    </CardFooter>
+  </Card>
+);
+
+const renderBadge = () => <Badge>Badge</Badge>;
+
+const renderAvatar = () => (
+  <Avatar>
+    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+    <AvatarFallback>CN</AvatarFallback>
+  </Avatar>
+);
+
+const renderAccordion = () => (
+  <Accordion type="single" collapsible className="w-full">
+    <AccordionItem value="item-1">
+      <AccordionTrigger>Is it accessible?</AccordionTrigger>
+      <AccordionContent>
+        Yes. It adheres to the WAI-ARIA design pattern.
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem value="item-2">
+      <AccordionTrigger>Is it styled?</AccordionTrigger>
+      <AccordionContent>
+        Yes. It comes with default styles that matches the other components.
+      </AccordionContent>
+    </AccordionItem>
+  </Accordion>
+);
+
+const renderAlert = () => (
+  <Alert>
+    <AlertTitle>Alert Title</AlertTitle>
+    <AlertDescription>Alert Description</AlertDescription>
+  </Alert>
+);
+
+const renderAspectRatio = () => (
+  <div className="w-[200px]">
+    <AspectRatio ratio={16 / 9}>
+      <div className="flex items-center justify-center bg-muted w-full h-full rounded-md">
+        16:9
+      </div>
+    </AspectRatio>
+  </div>
+);
+
+const renderTeamComparison = () => (
+  <div className="h-96 overflow-auto">
+    <TeamComparison 
+      teams={[
+        { id: '1', name: 'Liverpool', logoUrl: 'https://via.placeholder.com/150' },
+        { id: '2', name: 'Arsenal', logoUrl: 'https://via.placeholder.com/150' }
+      ]} 
+      onClose={() => {}}
+    />
+  </div>
+);
+
+// Props rendering functions
+const renderButtonProps = () => (
+  <div className="space-y-4">
+    <p className="font-medium">Props:</p>
+    <ul className="list-disc pl-5 space-y-2 text-sm">
+      <li><code>variant</code> - Button style variant</li>
+      <li><code>size</code> - Button size</li>
+      <li><code>asChild</code> - Change the component to the HTML tag or component</li>
+    </ul>
+  </div>
+);
+
 // Sample code snippets for components
 const buttonCode = `import { Button } from "@/components/ui/button"
 
@@ -186,7 +271,7 @@ export const componentCategories: Category[] = [
   {
     id: 'ui',
     name: 'UI Components',
-    icon: <Box className="h-4 w-4" />,
+    icon: React.createElement(Box, { className: "h-4 w-4" }),
     subcategories: [
       {
         id: 'basic',
@@ -197,24 +282,15 @@ export const componentCategories: Category[] = [
             id: 'button',
             name: 'Button',
             description: 'Displays a button or a component that looks like a button.',
-            component: <Button>Click me</Button>,
+            component: renderButton(),
             code: buttonCode,
-            props: (
-              <div className="space-y-4">
-                <p className="font-medium">Props:</p>
-                <ul className="list-disc pl-5 space-y-2 text-sm">
-                  <li><code>variant</code> - Button style variant</li>
-                  <li><code>size</code> - Button size</li>
-                  <li><code>asChild</code> - Change the component to the HTML tag or component</li>
-                </ul>
-              </div>
-            )
+            props: renderButtonProps()
           },
           {
             id: 'badge',
             name: 'Badge',
             description: 'Displays a badge or a component that looks like a badge.',
-            component: <Badge>Badge</Badge>,
+            component: renderBadge(),
             code: badgeCode
           },
         ]
@@ -228,42 +304,14 @@ export const componentCategories: Category[] = [
             id: 'card',
             name: 'Card',
             description: 'Displays a card with header, content, and footer.',
-            component: (
-              <Card className="w-full max-w-md">
-                <CardHeader>
-                  <CardTitle>Card Title</CardTitle>
-                  <CardDescription>Card Description</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p>Card Content</p>
-                </CardContent>
-                <CardFooter>
-                  <p>Card Footer</p>
-                </CardFooter>
-              </Card>
-            ),
+            component: renderCard(),
             code: cardCode
           },
           {
             id: 'accordion',
             name: 'Accordion',
             description: 'Displays a vertically stacked set of interactive headings that each reveal an associated section of content.',
-            component: (
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                  <AccordionContent>
-                    Yes. It adheres to the WAI-ARIA design pattern.
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="item-2">
-                  <AccordionTrigger>Is it styled?</AccordionTrigger>
-                  <AccordionContent>
-                    Yes. It comes with default styles that matches the other components.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            ),
+            component: renderAccordion(),
             code: accordionCode
           },
         ]
@@ -277,27 +325,14 @@ export const componentCategories: Category[] = [
             id: 'avatar',
             name: 'Avatar',
             description: 'An image element with a fallback for representing the user.',
-            component: (
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            ),
+            component: renderAvatar(),
             code: avatarCode
           },
           {
             id: 'aspect-ratio',
             name: 'Aspect Ratio',
             description: 'Displays content with a desired ratio.',
-            component: (
-              <div className="w-[200px]">
-                <AspectRatio ratio={16 / 9}>
-                  <div className="flex items-center justify-center bg-muted w-full h-full rounded-md">
-                    16:9
-                  </div>
-                </AspectRatio>
-              </div>
-            ),
+            component: renderAspectRatio(),
             code: aspectRatioCode
           },
         ]
@@ -311,12 +346,7 @@ export const componentCategories: Category[] = [
             id: 'alert',
             name: 'Alert',
             description: 'Displays a callout for user attention.',
-            component: (
-              <Alert>
-                <AlertTitle>Alert Title</AlertTitle>
-                <AlertDescription>Alert Description</AlertDescription>
-              </Alert>
-            ),
+            component: renderAlert(),
             code: alertCode
           },
         ]
@@ -326,7 +356,7 @@ export const componentCategories: Category[] = [
   {
     id: 'team',
     name: 'Team Components',
-    icon: <Users className="h-4 w-4" />,
+    icon: React.createElement(Users, { className: "h-4 w-4" }),
     subcategories: [
       {
         id: 'team-display',
@@ -337,17 +367,7 @@ export const componentCategories: Category[] = [
             id: 'team-comparison',
             name: 'Team Comparison',
             description: 'Shows a detailed comparison between two teams.',
-            component: (
-              <div className="h-96 overflow-auto">
-                <TeamComparison 
-                  teams={[
-                    { id: '1', name: 'Liverpool', logoUrl: 'https://via.placeholder.com/150' },
-                    { id: '2', name: 'Arsenal', logoUrl: 'https://via.placeholder.com/150' }
-                  ]} 
-                  onClose={() => {}}
-                />
-              </div>
-            ),
+            component: renderTeamComparison(),
             code: teamComparisonCode
           },
         ]
@@ -357,7 +377,7 @@ export const componentCategories: Category[] = [
   {
     id: 'match',
     name: 'Match Components',
-    icon: <Calendar className="h-4 w-4" />,
+    icon: React.createElement(Calendar, { className: "h-4 w-4" }),
     subcategories: [
       {
         id: 'match-display',
@@ -370,7 +390,7 @@ export const componentCategories: Category[] = [
   {
     id: 'dashboard',
     name: 'Dashboard Components',
-    icon: <LayoutDashboard className="h-4 w-4" />,
+    icon: React.createElement(LayoutDashboard, { className: "h-4 w-4" }),
     subcategories: [
       {
         id: 'dashboard-widgets',
@@ -383,7 +403,7 @@ export const componentCategories: Category[] = [
   {
     id: 'pages',
     name: 'Page Components',
-    icon: <FileText className="h-4 w-4" />,
+    icon: React.createElement(FileText, { className: "h-4 w-4" }),
     subcategories: [
       {
         id: 'main-pages',
