@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, Copy, ArrowRight, GitHub, Package, Bookmark } from 'lucide-react';
+import { Home, Copy, ArrowRight, Github, Package, Bookmark } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { componentCategories } from '@/data/showcase-data';
+import { componentCategories } from '@/data/showcase';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface ShowcaseHomeProps {
@@ -85,7 +85,7 @@ const ShowcaseHome: React.FC<ShowcaseHomeProps> = ({ totalComponents }) => {
             </CardContent>
             <CardFooter>
               <Button variant="outline" className="w-full text-xs h-8 bg-white/10 border-white/10">
-                <GitHub className="mr-2 h-3 w-3" />
+                <Github className="mr-2 h-3 w-3" />
                 View on GitHub
               </Button>
             </CardFooter>

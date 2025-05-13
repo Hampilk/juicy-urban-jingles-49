@@ -16,16 +16,8 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem
 } from '@/components/ui/sidebar';
-import { 
-  LayoutDashboard, 
-  Box, 
-  Users, 
-  Calendar, 
-  Layout, 
-  FileText, 
-  Github
-} from 'lucide-react';
-import { componentCategories } from '@/data/showcase-data';
+import { Github } from 'lucide-react';
+import { componentCategories } from '@/data/showcase';
 import ComponentSearch from './ComponentSearch';
 import { Badge } from '@/components/ui/badge';
 
@@ -41,7 +33,10 @@ const ShowcaseSidebar: React.FC<ShowcaseSidebarProps> = ({ onSearch }) => {
     <Sidebar side="left" variant="inset" collapsible="icon">
       <SidebarHeader>
         <div className="flex items-center gap-2 px-2 py-1.5">
-          <Box className="w-6 h-6 text-blue-400" />
+          <div className="w-6 h-6 text-blue-400">
+            {/* Use one of the icons from the first category */}
+            {componentCategories[0].icon}
+          </div>
           <span className="font-semibold text-lg">Component Library</span>
         </div>
         <div className="px-2">
