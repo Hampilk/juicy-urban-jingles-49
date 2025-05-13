@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { SidebarProvider, SidebarInset, SidebarRail } from '@/components/ui/sidebar';
 import ShowcaseSidebar from '@/components/showcase/ShowcaseSidebar';
@@ -10,11 +10,37 @@ import { componentCategories, getTotalComponentCount } from '@/data/showcase';
 
 const ComponentShowcase = () => {
   const totalComponents = getTotalComponentCount();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredComponents, setFilteredComponents] = useState([]);
+  
+  // Handle search functionality
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    if (query.trim() === '') {
+      setFilteredComponents([]);
+      return;
+    }
+
+    // Filter components based on search query
+    const results = [];
+    componentCategories.forEach(category => {
+      category.subcategories.forEach(subcategory => {
+        subcategory.components.forEach(component => {
+          if (component.name.toLowerCase().includes(query.toLowerCase()) ||
+              component.description.toLowerCase().includes(query.toLowerCase())) {
+            results.push(component);
+          }
+        });
+      });
+    });
+
+    setFilteredComponents(results);
+  };
 
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-gradient-to-b from-gray-950 via-gray-950 to-black">
-        <ShowcaseSidebar />
+        <ShowcaseSidebar onSearch={handleSearch} />
         <SidebarRail />
         <SidebarInset>
           {/* Fixed background effects */}
@@ -27,7 +53,12 @@ const ComponentShowcase = () => {
           <Routes>
             <Route path="/" element={<ShowcaseHome totalComponents={totalComponents} />} />
             <Route path="/:categoryId/:subcategoryId/:componentId" element={<ComponentDetail />} />
-            <Route path="/search" element={<SearchResults />} />
+            <Route path="/search" element={
+              <SearchResults 
+                searchQuery={searchQuery} 
+                filteredComponents={filteredComponents} 
+              />
+            } />
           </Routes>
         </SidebarInset>
       </div>
