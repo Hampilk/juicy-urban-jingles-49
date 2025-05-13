@@ -9,7 +9,7 @@ import {
   BarChart3, 
   Home, 
   List,
-  Button as ButtonIcon,
+  Square as ButtonIcon, // Changed Button to Square as ButtonIcon
   Table as TableIcon,
   FormInput,
   Bell,
@@ -137,8 +137,8 @@ const renderTeamComparison = () => React.createElement(
     TeamComparison, 
     { 
       teams: [
-        { id: '1', name: 'Liverpool', logoUrl: 'https://via.placeholder.com/150' },
-        { id: '2', name: 'Arsenal', logoUrl: 'https://via.placeholder.com/150' }
+        { id: '1', name: 'Liverpool', logoUrl: 'https://via.placeholder.com/150', league: 'Premier League' },
+        { id: '2', name: 'Arsenal', logoUrl: 'https://via.placeholder.com/150', league: 'Premier League' }
       ],
       onClose: () => {} 
     }
@@ -289,8 +289,8 @@ import { TeamComparison } from '../components/teams/TeamComparison';
 
 export function TeamComparisonDemo() {
   const teams: Team[] = [
-    { id: '1', name: 'Liverpool', logoUrl: '/liverpool.png' },
-    { id: '2', name: 'Arsenal', logoUrl: '/arsenal.png' }
+    { id: '1', name: 'Liverpool', logoUrl: '/liverpool.png', league: 'Premier League' },
+    { id: '2', name: 'Arsenal', logoUrl: '/arsenal.png', league: 'Premier League' }
   ];
   
   return <TeamComparison teams={teams} onClose={() => {}} />
