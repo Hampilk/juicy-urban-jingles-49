@@ -10,5 +10,6 @@ export const appRoutes = [
   { path: "/analysis", component: "Analysis" },
   { path: "/league", component: "League" },
   { path: "/league-management", component: "LeagueManagement" },
+  { path: "/component-showcase", component: "ComponentShowcase" },
   { path: "*", component: "NotFound" }
 ];

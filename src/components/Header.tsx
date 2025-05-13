@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Home, Users, Calendar, ChartBar, Settings, LayoutDashboard } from 'lucide-react';
+import { Home, Users, Calendar, ChartBar, Settings, LayoutDashboard, Component } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import Navigation from './navigation/Navigation';
@@ -25,6 +25,7 @@ const Header = () => {
     { text: "Statisztika", href: "/statistics", icon: <ChartBar className="w-4 h-4" /> },
     { text: "Rendszer", href: "/system", icon: <Settings className="w-4 h-4" /> },
     { text: "Vezérlőpult", href: "/dashboard", icon: <LayoutDashboard className="w-4 h-4" /> },
+    { text: "Komponensek", href: "/component-showcase", icon: <Component className="w-4 h-4" /> },
   ];
 
   return (

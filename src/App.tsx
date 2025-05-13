@@ -11,6 +11,7 @@ import Statistics from "./pages/Statistics";
 import System from "./pages/System";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import ComponentShowcase from "./pages/ComponentShowcase";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/system" element={<System />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/component-showcase/*" element={<ComponentShowcase />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

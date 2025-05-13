@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Team } from '../../data/premier-league-teams';
 import { BarChart3, X } from 'lucide-react';
@@ -15,7 +16,7 @@ interface TeamComparisonProps {
   onClose: () => void;
 }
 
-const TeamComparison: React.FC<TeamComparisonProps> = ({ teams, onClose }) => {
+export const TeamComparison: React.FC<TeamComparisonProps> = ({ teams, onClose }) => {
   const stats = [
     { name: 'Játékosok', teamA: 26, teamB: 24 },
     { name: 'Győzelmek', teamA: 12, teamB: 9 },
