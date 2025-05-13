@@ -5,14 +5,27 @@ import { SidebarProvider, SidebarInset, SidebarRail } from '@/components/ui/side
 import ShowcaseSidebar from '@/components/showcase/ShowcaseSidebar';
 import ComponentTabs from '@/components/showcase/ComponentTabs';
 import CategoryBadge from '@/components/showcase/CategoryBadge';
+import ShowcaseHome from '@/components/showcase/ShowcaseHome';
 import { componentCategories, ComponentData, SubCategory, Category } from '@/data/showcase-data';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { ArrowLeft, Home } from 'lucide-react';
+
+// Count total number of components
+const getTotalComponentCount = (): number => {
+  let count = 0;
+  componentCategories.forEach(category => {
+    category.subcategories.forEach(subcategory => {
+      count += subcategory.components.length;
+    });
+  });
+  return count;
+};
 
 const ComponentShowcase = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredComponents, setFilteredComponents] = useState<ComponentData[]>([]);
   const navigate = useNavigate();
+  const totalComponents = getTotalComponentCount();
 
   // Handle search functionality
   const handleSearch = (query: string) => {
@@ -115,6 +128,9 @@ const ComponentShowcase = () => {
           component={component.component} 
           code={component.code}
           props={component.props}
+          version="1.0"
+          lastUpdated="2025-05-01"
+          status="stable"
         />
       </div>
     );
@@ -169,64 +185,6 @@ const ComponentShowcase = () => {
     );
   };
 
-  // Home page for component showcase
-  const ShowcaseHome = () => {
-    return (
-      <div className="p-6 space-y-8">
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <Link to="/" className="p-1.5 rounded-full bg-white/5 hover:bg-white/10">
-              <Home className="h-4 w-4 text-gray-400" />
-            </Link>
-            <h1 className="text-3xl font-bold">Component Library</h1>
-          </div>
-          <p className="text-gray-400">
-            Explore all available components, view their code and learn how to use them in your project.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {componentCategories.map(category => (
-            <div 
-              key={category.id}
-              className="p-6 rounded-lg border border-white/10 bg-black/20 hover:bg-black/30 transition-colors"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-blue-500/20 rounded-md text-blue-400">
-                  {category.icon}
-                </div>
-                <h2 className="text-xl font-bold">{category.name}</h2>
-              </div>
-              <div className="space-y-4">
-                {category.subcategories.map(subcategory => (
-                  <div key={subcategory.id} className="space-y-2">
-                    <h3 className="text-sm font-medium text-gray-300">{subcategory.name}</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {subcategory.components.map(component => (
-                        <Link
-                          key={component.id}
-                          to={`/component-showcase/${category.id}/${subcategory.id}/${component.id}`}
-                          className="text-xs px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-blue-400 transition-colors"
-                        >
-                          {component.name}
-                        </Link>
-                      ))}
-                      {subcategory.components.length === 0 && (
-                        <span className="text-xs px-2 py-1 rounded bg-white/5 text-gray-500">
-                          No components yet
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-gradient-to-b from-gray-950 via-gray-950 to-black">
@@ -241,7 +199,7 @@ const ComponentShowcase = () => {
           </div>
           
           <Routes>
-            <Route path="/" element={searchQuery ? <SearchResults /> : <ShowcaseHome />} />
+            <Route path="/" element={searchQuery ? <SearchResults /> : <ShowcaseHome totalComponents={totalComponents} />} />
             <Route path="/:categoryId/:subcategoryId/:componentId" element={<ComponentDetail />} />
           </Routes>
         </SidebarInset>

@@ -16,20 +16,18 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem
 } from '@/components/ui/sidebar';
-import { Input } from '@/components/ui/input';
 import { 
   LayoutDashboard, 
-  Search, 
   Box, 
   Users, 
   Calendar, 
-  BarChart3, 
   Layout, 
   FileText, 
-  Home, 
-  List 
+  Github
 } from 'lucide-react';
 import { componentCategories } from '@/data/showcase-data';
+import ComponentSearch from './ComponentSearch';
+import { Badge } from '@/components/ui/badge';
 
 interface ShowcaseSidebarProps {
   onSearch: (query: string) => void;
@@ -39,10 +37,6 @@ const ShowcaseSidebar: React.FC<ShowcaseSidebarProps> = ({ onSearch }) => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onSearch(e.target.value);
-  };
-
   return (
     <Sidebar side="left" variant="inset" collapsible="icon">
       <SidebarHeader>
@@ -51,11 +45,7 @@ const ShowcaseSidebar: React.FC<ShowcaseSidebarProps> = ({ onSearch }) => {
           <span className="font-semibold text-lg">Component Library</span>
         </div>
         <div className="px-2">
-          <Input 
-            placeholder="Search components..." 
-            onChange={handleSearchChange}
-            className="bg-background/50"
-          />
+          <ComponentSearch onSearch={onSearch} />
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -70,8 +60,16 @@ const ShowcaseSidebar: React.FC<ShowcaseSidebarProps> = ({ onSearch }) => {
                 {category.subcategories.map((subcategory) => (
                   <SidebarMenuItem key={subcategory.id}>
                     <SidebarMenuButton tooltip={subcategory.name}>
-                      <subcategory.icon className="h-4 w-4" />
+                      {React.createElement(subcategory.icon, { className: "h-4 w-4" })}
                       <span>{subcategory.name}</span>
+                      {subcategory.components.length > 0 && (
+                        <Badge 
+                          variant="outline" 
+                          className="ml-auto bg-white/5 text-xs border-transparent"
+                        >
+                          {subcategory.components.length}
+                        </Badge>
+                      )}
                     </SidebarMenuButton>
                     <SidebarMenuSub>
                       {subcategory.components.map((component) => (
@@ -95,8 +93,12 @@ const ShowcaseSidebar: React.FC<ShowcaseSidebarProps> = ({ onSearch }) => {
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <div className="p-2 text-xs text-gray-500">
+        <div className="p-2 space-y-2 text-xs text-gray-500">
           <p>Component library for visualizing and using all available components in the project.</p>
+          <div className="flex items-center gap-1.5 text-gray-400 hover:text-gray-300 transition-colors">
+            <Github className="h-3.5 w-3.5" />
+            <a href="https://github.com/shadcn/ui" target="_blank" rel="noopener noreferrer">shadcn/ui components</a>
+          </div>
         </div>
       </SidebarFooter>
     </Sidebar>

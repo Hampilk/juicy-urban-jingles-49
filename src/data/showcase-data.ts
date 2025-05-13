@@ -9,13 +9,18 @@ import {
   BarChart3, 
   Home, 
   List,
-  Square as ButtonIcon, // Changed Button to Square as ButtonIcon
+  Square as ButtonIcon, // Using Square as button icon
   Table as TableIcon,
   FormInput,
   Bell,
   Menu,
   Monitor,
-  LayoutDashboard
+  LayoutDashboard,
+  CheckCircle,
+  AlertCircle,
+  XCircle,
+  Clock,
+  ArrowRight
 } from 'lucide-react';
 
 // Import component examples for showcase
@@ -31,6 +36,16 @@ import {
 } from '@/components/ui/accordion';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Textarea } from '@/components/ui/textarea';
+import { Toast } from '@/components/ui/toast';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { TeamComparison } from '../components/teams/TeamComparison';
 
 // Type definitions for component data structure
@@ -130,6 +145,120 @@ const renderAspectRatio = () => React.createElement(
   )
 );
 
+// New component renderers
+const renderTabs = () => React.createElement(
+  Tabs,
+  { defaultValue: "account", className: "w-full" },
+  [
+    React.createElement(TabsList, { key: "list", className: "grid w-full grid-cols-2" }, [
+      React.createElement(TabsTrigger, { key: "tab1", value: "account" }, "Account"),
+      React.createElement(TabsTrigger, { key: "tab2", value: "password" }, "Password")
+    ]),
+    React.createElement(TabsContent, { key: "content1", value: "account" }, "Account settings"),
+    React.createElement(TabsContent, { key: "content2", value: "password" }, "Password settings")
+  ]
+);
+
+const renderInput = () => React.createElement(
+  Input,
+  { placeholder: "Email", type: "email" }
+);
+
+const renderCheckbox = () => React.createElement(
+  "div",
+  { className: "flex items-center space-x-2" },
+  [
+    React.createElement(Checkbox, { id: "terms", key: "checkbox" }),
+    React.createElement("label", { htmlFor: "terms", className: "text-sm", key: "label" }, "Accept terms and conditions")
+  ]
+);
+
+const renderRadioGroup = () => React.createElement(
+  RadioGroup,
+  { defaultValue: "option-one" },
+  [
+    React.createElement("div", { className: "flex items-center space-x-2", key: "option1" }, [
+      React.createElement(RadioGroupItem, { value: "option-one", id: "option-one", key: "radio1" }),
+      React.createElement("label", { htmlFor: "option-one", key: "label1" }, "Option One")
+    ]),
+    React.createElement("div", { className: "flex items-center space-x-2", key: "option2" }, [
+      React.createElement(RadioGroupItem, { value: "option-two", id: "option-two", key: "radio2" }),
+      React.createElement("label", { htmlFor: "option-two", key: "label2" }, "Option Two")
+    ])
+  ]
+);
+
+const renderSelect = () => React.createElement(
+  Select,
+  {},
+  [
+    React.createElement(SelectTrigger, { key: "trigger", className: "w-[180px]" }, 
+      React.createElement(SelectValue, { placeholder: "Select a fruit" })
+    ),
+    React.createElement(SelectContent, { key: "content" }, [
+      React.createElement(SelectItem, { key: "item1", value: "apple" }, "Apple"),
+      React.createElement(SelectItem, { key: "item2", value: "banana" }, "Banana"),
+      React.createElement(SelectItem, { key: "item3", value: "orange" }, "Orange")
+    ])
+  ]
+);
+
+const renderSwitch = () => React.createElement(
+  "div",
+  { className: "flex items-center space-x-2" },
+  [
+    React.createElement(Switch, { id: "airplane-mode", key: "switch" }),
+    React.createElement("label", { htmlFor: "airplane-mode", key: "label" }, "Airplane Mode")
+  ]
+);
+
+const renderTable = () => React.createElement(
+  Table,
+  {},
+  [
+    React.createElement(TableCaption, { key: "caption" }, "A list of your recent invoices."),
+    React.createElement(TableHeader, { key: "header" }, 
+      React.createElement(TableRow, {}, [
+        React.createElement(TableHead, { key: "head1" }, "Invoice"),
+        React.createElement(TableHead, { key: "head2" }, "Status"),
+        React.createElement(TableHead, { key: "head3", className: "text-right" }, "Amount")
+      ])
+    ),
+    React.createElement(TableBody, { key: "body" }, [
+      React.createElement(TableRow, { key: "row1" }, [
+        React.createElement(TableCell, { key: "cell1" }, "INV001"),
+        React.createElement(TableCell, { key: "cell2" }, "Paid"),
+        React.createElement(TableCell, { key: "cell3", className: "text-right" }, "$250.00")
+      ]),
+      React.createElement(TableRow, { key: "row2" }, [
+        React.createElement(TableCell, { key: "cell1" }, "INV002"),
+        React.createElement(TableCell, { key: "cell2" }, "Pending"),
+        React.createElement(TableCell, { key: "cell3", className: "text-right" }, "$150.00")
+      ])
+    ])
+  ]
+);
+
+const renderTextarea = () => React.createElement(
+  Textarea,
+  { placeholder: "Type your message here." }
+);
+
+const renderTooltip = () => React.createElement(
+  TooltipProvider,
+  {},
+  React.createElement(
+    Tooltip,
+    {},
+    [
+      React.createElement(TooltipTrigger, { key: "trigger", asChild: true }, 
+        React.createElement(Button, { variant: "outline" }, "Hover me")
+      ),
+      React.createElement(TooltipContent, { key: "content" }, "This is a tooltip")
+    ]
+  )
+);
+
 const renderTeamComparison = () => React.createElement(
   "div", 
   { className: "h-96 overflow-auto" }, 
@@ -166,6 +295,58 @@ const renderButtonProps = () => React.createElement(
         React.createElement("li", { key: "prop3" }, [
           React.createElement("code", {}, "asChild"),
           " - Change the component to the HTML tag or component"
+        ])
+      ]
+    )
+  ]
+);
+
+const renderInputProps = () => React.createElement(
+  "div", 
+  { className: "space-y-4" }, 
+  [
+    React.createElement("p", { key: "title", className: "font-medium" }, "Props:"),
+    React.createElement(
+      "ul", 
+      { key: "list", className: "list-disc pl-5 space-y-2 text-sm" }, 
+      [
+        React.createElement("li", { key: "prop1" }, [
+          React.createElement("code", {}, "type"),
+          " - Input type (text, email, password, etc.)"
+        ]),
+        React.createElement("li", { key: "prop2" }, [
+          React.createElement("code", {}, "placeholder"),
+          " - Input placeholder text"
+        ]),
+        React.createElement("li", { key: "prop3" }, [
+          React.createElement("code", {}, "disabled"),
+          " - Disable the input"
+        ])
+      ]
+    )
+  ]
+);
+
+const renderSelectProps = () => React.createElement(
+  "div", 
+  { className: "space-y-4" }, 
+  [
+    React.createElement("p", { key: "title", className: "font-medium" }, "Props:"),
+    React.createElement(
+      "ul", 
+      { key: "list", className: "list-disc pl-5 space-y-2 text-sm" }, 
+      [
+        React.createElement("li", { key: "prop1" }, [
+          React.createElement("code", {}, "defaultValue"),
+          " - Default selected value"
+        ]),
+        React.createElement("li", { key: "prop2" }, [
+          React.createElement("code", {}, "value"),
+          " - Controlled value"
+        ]),
+        React.createElement("li", { key: "prop3" }, [
+          React.createElement("code", {}, "onValueChange"),
+          " - Callback when value changes"
         ])
       ]
     )
@@ -284,6 +465,160 @@ export function AspectRatioDemo() {
   )
 }`;
 
+const tabsCode = `import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+export function TabsDemo() {
+  return (
+    <Tabs defaultValue="account" className="w-[400px]">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+      </TabsList>
+      <TabsContent value="account">Account settings</TabsContent>
+      <TabsContent value="password">Password settings</TabsContent>
+    </Tabs>
+  )
+}`;
+
+const inputCode = `import { Input } from "@/components/ui/input"
+
+export function InputDemo() {
+  return <Input type="email" placeholder="Email" />
+}`;
+
+const checkboxCode = `import { Checkbox } from "@/components/ui/checkbox"
+
+export function CheckboxDemo() {
+  return (
+    <div className="flex items-center space-x-2">
+      <Checkbox id="terms" />
+      <label
+        htmlFor="terms"
+        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      >
+        Accept terms and conditions
+      </label>
+    </div>
+  )
+}`;
+
+const radioGroupCode = `import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+
+export function RadioGroupDemo() {
+  return (
+    <RadioGroup defaultValue="option-one">
+      <div className="flex items-center space-x-2">
+        <RadioGroupItem value="option-one" id="option-one" />
+        <Label htmlFor="option-one">Option One</Label>
+      </div>
+      <div className="flex items-center space-x-2">
+        <RadioGroupItem value="option-two" id="option-two" />
+        <Label htmlFor="option-two">Option Two</Label>
+      </div>
+    </RadioGroup>
+  )
+}`;
+
+const selectCode = `import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+export function SelectDemo() {
+  return (
+    <Select>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="apple">Apple</SelectItem>
+        <SelectItem value="banana">Banana</SelectItem>
+        <SelectItem value="orange">Orange</SelectItem>
+      </SelectContent>
+    </Select>
+  )
+}`;
+
+const switchCode = `import { Switch } from "@/components/ui/switch"
+
+export function SwitchDemo() {
+  return (
+    <div className="flex items-center space-x-2">
+      <Switch id="airplane-mode" />
+      <label htmlFor="airplane-mode">Airplane Mode</label>
+    </div>
+  )
+}`;
+
+const tableCode = `import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
+export function TableDemo() {
+  return (
+    <Table>
+      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Invoice</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead className="text-right">Amount</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell>INV001</TableCell>
+          <TableCell>Paid</TableCell>
+          <TableCell className="text-right">$250.00</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>INV002</TableCell>
+          <TableCell>Pending</TableCell>
+          <TableCell className="text-right">$150.00</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  )
+}`;
+
+const textareaCode = `import { Textarea } from "@/components/ui/textarea"
+
+export function TextareaDemo() {
+  return <Textarea placeholder="Type your message here." />
+}`;
+
+const tooltipCode = `import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+export function TooltipDemo() {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Hover me</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>This is a tooltip</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
+}`;
+
 const teamComparisonCode = `import { Team } from '../../data/premier-league-teams';
 import { TeamComparison } from '../components/teams/TeamComparison';
 
@@ -344,6 +679,13 @@ export const componentCategories: Category[] = [
             component: renderAccordion(),
             code: accordionCode
           },
+          {
+            id: 'tabs',
+            name: 'Tabs',
+            description: 'A set of layered sections of content that display one panel at a time.',
+            component: renderTabs(),
+            code: tabsCode
+          }
         ]
       },
       {
@@ -365,6 +707,13 @@ export const componentCategories: Category[] = [
             component: renderAspectRatio(),
             code: aspectRatioCode
           },
+          {
+            id: 'table',
+            name: 'Table',
+            description: 'A responsive table component for displaying tabular data.',
+            component: renderTable(),
+            code: tableCode
+          }
         ]
       },
       {
@@ -379,8 +728,66 @@ export const componentCategories: Category[] = [
             component: renderAlert(),
             code: alertCode
           },
+          {
+            id: 'tooltip',
+            name: 'Tooltip',
+            description: 'A popup that displays information related to an element when the element receives focus or is hovered over.',
+            component: renderTooltip(),
+            code: tooltipCode
+          }
         ]
       },
+      {
+        id: 'forms',
+        name: 'Form Controls',
+        icon: FormInput,
+        components: [
+          {
+            id: 'input',
+            name: 'Input',
+            description: 'A form input field for collecting user input.',
+            component: renderInput(),
+            code: inputCode,
+            props: renderInputProps()
+          },
+          {
+            id: 'checkbox',
+            name: 'Checkbox',
+            description: 'A control that allows the user to toggle between checked and unchecked states.',
+            component: renderCheckbox(),
+            code: checkboxCode
+          },
+          {
+            id: 'radio-group',
+            name: 'Radio Group',
+            description: 'A set of checkable buttons, where only one can be checked at a time.',
+            component: renderRadioGroup(),
+            code: radioGroupCode
+          },
+          {
+            id: 'select',
+            name: 'Select',
+            description: 'A dropdown control that displays a list of options.',
+            component: renderSelect(),
+            code: selectCode,
+            props: renderSelectProps()
+          },
+          {
+            id: 'switch',
+            name: 'Switch',
+            description: 'A toggle switch control.',
+            component: renderSwitch(),
+            code: switchCode
+          },
+          {
+            id: 'textarea',
+            name: 'Textarea',
+            description: 'A multi-line text input control.',
+            component: renderTextarea(),
+            code: textareaCode
+          }
+        ]
+      }
     ]
   },
   {

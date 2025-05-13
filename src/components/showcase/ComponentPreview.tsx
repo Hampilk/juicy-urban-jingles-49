@@ -7,19 +7,28 @@ interface ComponentPreviewProps {
   className?: string;
   withBackground?: boolean;
   height?: string;
+  padding?: string;
+  centered?: boolean;
+  orientation?: 'horizontal' | 'vertical';
 }
 
 const ComponentPreview: React.FC<ComponentPreviewProps> = ({ 
   children, 
   className,
   withBackground = true,
-  height
+  height = 'auto',
+  padding = 'p-6',
+  centered = true,
+  orientation = 'horizontal'
 }) => {
   return (
     <div className={cn(
-      "rounded-lg border p-6 flex items-center justify-center",
+      "rounded-lg border flex",
       withBackground && "bg-grid-pattern bg-muted/20",
-      height && `min-h-[${height}]`,
+      padding,
+      height === 'auto' ? 'min-h-[200px]' : `min-h-[${height}]`,
+      centered && "items-center justify-center",
+      orientation === 'vertical' && "flex-col",
       className
     )}>
       <div className="w-full">
